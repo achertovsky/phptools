@@ -16,11 +16,9 @@ Commands applicable:
     - phpmd
     - composer
 ## use built image
-- `docker pull achertovsky/phptools`<br>
-Check tags list on [dockerhub](https://hub.docker.com/r/achertovsky/phptools)
+- `docker pull achertovsky/phptools:8.2`<br>
 
 # Tools config
-
 You can create your own
 ## config file for phpcs
 https://github.com/squizlabs/PHP_CodeSniffer/wiki/
