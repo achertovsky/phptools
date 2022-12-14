@@ -7,7 +7,6 @@ Container with tools required to develop php and check code you write. Contains:
 
 # Usage
 ## build local
-- `cp all.dist all`
 - `docker build -t phptools .`
 - `docker run --rm -it -u ${UID} -v ${PWD}:/app -w /app phptools all`<br>
 Commands applicable:
