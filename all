@@ -1,7 +1,14 @@
 #!/bin/bash
+path=./
+
+if [ ! -z $1 ]
+then
+    path=$1
+fi
+
 echo -e "\033[1;34mPHPCS\033[0m"
-phpcs ./
+phpcs $path
 echo -e "\033[1;34mPHPMD (do not mind deprecated message, they aware and gonna fix) \033[0m"
-phpmd ./ text 'cleancode,codesize,controversial,design,naming,unusedcode' --exclude=vendor
+phpmd $path text 'cleancode,codesize,controversial,design,naming,unusedcode' --exclude=vendor
 echo -e "\033[1;34mPHPSTAN\033[0m"
-phpstan analyze ./
+phpstan analyze --level=7 $path
