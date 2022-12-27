@@ -6,9 +6,7 @@ then
     path=$1
 fi
 
-echo -e "\033[1;34mPHPCS\033[0m"
 phpcs $path
-echo -e "\033[1;34mPHPMD (do not mind deprecated message, they aware and gonna fix) \033[0m"
+echo -e "(do not mind deprecated message, phpmd aware and gonna fix)"
 phpmd $path text 'cleancode,codesize,controversial,design,naming,unusedcode' --exclude=vendor
-echo -e "\033[1;34mPHPSTAN\033[0m"
 phpstan analyze --level=7 $path
