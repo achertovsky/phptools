@@ -9,14 +9,14 @@ Container with tools required to develop php and check code you write. Contains:
 ## build local
 - `docker build -t phptools .`
 - `docker run --rm -it -u ${UID} -v ${PWD}:/app -w /app phptools all`<br>
-Commands applicable:
-    - all (will launch all tools one by one)
-    - phpstan
-    - phpcs
-    - phpmd
-    - composer
 ## use built image
 - `docker pull achertovsky/phptools:8.2`<br>
+## Commands applicable
+- all (will launch all tools one by one)
+- phpstan
+- phpcs
+- phpmd
+- composer
 
 # Tools config
 You can create your own
