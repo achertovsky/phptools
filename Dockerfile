@@ -12,3 +12,6 @@ COPY all /usr/bin/all
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN chmod +x /usr/bin/phpcs /usr/bin/phpstan /usr/bin/phpmd /usr/bin/all
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
