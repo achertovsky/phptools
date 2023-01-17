@@ -1,12 +1,31 @@
 #!/bin/bash
-path=./
 
-if [ ! -z $1 ]
-then
-    path=$1
+function check() {
+    phpcs $1
+    echo -e "(do not mind deprecated message, phpmd aware and gonna fix)"
+    phpmd $1 text 'cleancode,codesize,controversial,design,naming,unusedcode' --exclude=vendor
+    phpstan analyze --level=7 $1
+}
+
+if [ -z $* ]
+	then
+        check ./
+        exit 1
 fi
 
-phpcs $path
-echo -e "(do not mind deprecated message, phpmd aware and gonna fix)"
-phpmd $path text 'cleancode,codesize,controversial,design,naming,unusedcode' --exclude=vendor
-phpstan analyze --level=7 $path
+while getopts "mp:" opt
+	do
+	case $opt in
+        m)
+            for file in $(git ls-files -om)
+                do
+                    check $file
+                done
+
+            exit 1
+            ;;
+        p)
+            check $OPTARG
+            ;;
+	esac
+done

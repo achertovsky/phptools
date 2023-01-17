@@ -2,7 +2,8 @@ FROM php:8.2-cli-alpine
 
 RUN apk add --no-cache --upgrade \
     wget \
-    bash
+    bash \
+    git
 
 RUN wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -O /usr/bin/phpcs
 RUN wget https://github.com/phpstan/phpstan/releases/download/1.9.3/phpstan.phar -O /usr/bin/phpstan

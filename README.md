@@ -18,6 +18,10 @@ Container with tools required to develop php and check code you write. Contains:
 - phpmd
 - composer
 
+### all options applicable
+- `-m` will check files that is modified/added according to `git`
+- `-p test.php` will check provided file only
+
 # Tools config
 You can create your own
 ## config file for phpcs
