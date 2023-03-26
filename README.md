@@ -1,9 +1,9 @@
 # General
 Container with tools required to develop php and check code you write. Contains:
-- Phpstan
+- phpstan
 - Phpmd
 - phpcs
-- composer
+- phpcpd
 
 # Usage
 ## build local
@@ -16,7 +16,7 @@ Container with tools required to develop php and check code you write. Contains:
 - phpstan
 - phpcs
 - phpmd
-- composer
+- phpcpd
 
 ### all options applicable
 - `-m` will check files that is modified/added according to `git`

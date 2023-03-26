@@ -5,6 +5,7 @@ function check() {
     echo -e "(do not mind deprecated message, phpmd aware and gonna fix)"
     phpmd $1 text 'cleancode,codesize,controversial,design,naming,unusedcode' --exclude=vendor
     phpstan analyze --level=7 $1
+    phpcpd --fuzzy --exclude vendor $1
 }
 
 if [ -z $* ]
