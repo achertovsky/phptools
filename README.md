@@ -10,7 +10,7 @@ Container with tools required to develop php and check code you write. Contains:
 - `docker build -t phptools .`
 - `docker run --rm -it -u ${UID} -v ${PWD}:/app -w /app phptools all`<br>
 ## use built image
-- `docker pull achertovsky/phptools:php8.0`<br>
+- `docker pull achertovsky/phptools`<br>
 ## Commands applicable
 - all (will launch all tools one by one)
 - phpstan
