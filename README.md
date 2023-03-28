@@ -25,8 +25,7 @@ Container with tools required to develop php and check code you write. Contains:
 # Tools config
 You can create your own
 ## config file for phpcs
-https://github.com/squizlabs/PHP_CodeSniffer/wiki/
-Advanced-Usage#using-a-default-configuration-file
+https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#using-a-default-configuration-file
 ## config file for phpmd
 https://phpmd.org/documentation/creating-a-ruleset.html
 ## config file for phpstan
