@@ -19,3 +19,5 @@ RUN chmod +x \
     /usr/bin/phpcpd \
     /usr/bin/all
 
+RUN git config --global --add safe.directory /app
+
