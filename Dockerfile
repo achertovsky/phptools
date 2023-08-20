@@ -11,13 +11,16 @@ RUN wget https://github.com/phpmd/phpmd/releases/download/2.13.0/phpmd.phar -O /
 RUN wget https://phar.phpunit.de/phpcpd.phar -O /usr/bin/phpcpd
 
 COPY all /usr/bin/all
+COPY suggest-config /usr/bin/suggest-config
+COPY config /var/config
 
 RUN chmod +x \
     /usr/bin/phpcs \
     /usr/bin/phpstan \
     /usr/bin/phpmd \
     /usr/bin/phpcpd \
-    /usr/bin/all
+    /usr/bin/all \
+    /usr/bin/suggest-config
 
 RUN git config --global --add safe.directory /app
 
