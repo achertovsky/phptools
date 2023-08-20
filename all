@@ -7,7 +7,7 @@ function check() {
     phpcpd --fuzzy --exclude vendor $1
 }
 
-if [ -z $* ]
+if [ $# -eq 0 ]
 	then
         check ./
         exit 1
