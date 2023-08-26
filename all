@@ -1,10 +1,21 @@
 #!/bin/bash
 
 function check() {
+    checkFileExistence phpcs.xml
     phpcs $1
-    phpmd $1 text 'cleancode,codesize,controversial,design,naming,unusedcode' --exclude=vendor
+    checkFileExistence phpmd.xml
+    phpmd $1 text phpmd.xml
+    checkFileExistence phpstan.neon
     phpstan analyze --level=7 $1
-    phpcpd --fuzzy --exclude vendor $1
+    checkFileExistence phpcpd.xml
+    phpcpdrun $1
+}
+
+function checkFileExistence() {
+    if [ ! -f $1 ]; then
+        echo "File $1 not found! Try launching suggest-config"
+        exit 1
+    fi
 }
 
 if [ $# -eq 0 ]
