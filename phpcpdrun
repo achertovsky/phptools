@@ -1,0 +1,14 @@
+#!/bin/bash
+
+FUZZY=`yq -oy -p xml '.phpcpd.fuzzy // false' phpcpd.xml`
+MINLINES=`yq -oy -p xml '.phpcpd.minLines // 5' phpcpd.xml`
+MINTOKENS=`yq -oy -p xml '.phpcpd.minTokens // 70' phpcpd.xml`
+EXCLUDE=`yq -oy -p xml '.phpcpd.exclude.path | .[] as $item ireduce (""; . + " --exclude=" + $item)' phpcpd.xml`
+
+if [[ "$FUZZY" == "true" ]]
+    then
+        FUZZY='--fuzzy'
+    else
+        FUZZY=''
+fi
+phpcpd $EXCLUDE $FUZZY --min-lines=$MINLINES --min-tokens=$MINTOKENS $1
