@@ -2,13 +2,20 @@
 
 function check() {
     checkFileExistence phpcs.xml
+    echo -e "\033[1;32mphpcs:\033[0m"
     phpcs $1
     checkFileExistence phpmd.xml
+    echo -e "\033[1;32mphpmd:\033[0m"
     phpmd $1 text phpmd.xml
     checkFileExistence phpstan.neon
+    echo -e "\033[1;32mphpstan:\033[0m"
     phpstan analyze --level=7 $1
     checkFileExistence phpcpd.xml
+    echo -e "\033[1;32mphpcpd:\033[0m"
     phpcpdrun $1
+    echo -e "\033[1;32mphpmnd:\033[0m"
+    checkFileExistence phpmnd.xml
+    phpmndrun $1
 }
 
 function checkFileExistence() {

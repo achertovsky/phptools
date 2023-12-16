@@ -1,0 +1,10 @@
+#!/bin/bash
+
+EXCLUDE=`yq -oy -p xml '.phpmnd.exclude.path | .[] as $item ireduce (""; . + " --exclude=" + $item)' phpmnd.xml`
+
+if [[ "$EXCLUDE" == "" ]]
+    then
+        EXCLUDE="--exclude=`yq -oy -p xml '.phpmnd.exclude.path' phpmnd.xml`"
+fi
+
+phpmnd $EXCLUDE $1

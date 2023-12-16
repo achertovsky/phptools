@@ -11,4 +11,10 @@ if [[ "$FUZZY" == "true" ]]
     else
         FUZZY=''
 fi
+
+if [[ "$EXCLUDE" == "" ]]
+    then
+        EXCLUDE="--exclude=`yq -oy -p xml '.phpcpd.exclude.path' phpcpd.xml`"
+fi
+
 phpcpd $EXCLUDE $FUZZY --min-lines=$MINLINES --min-tokens=$MINTOKENS $1
