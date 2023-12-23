@@ -4,6 +4,7 @@ Container with tools required to develop php and check code you write. Contains:
 - phpmd
 - phpcs
 - phpcpd
+- phpmnd
 
 # Usage
 ## build local
@@ -22,6 +23,8 @@ Container with tools required to develop php and check code you write. Contains:
 - phpcs
 - phpmd
 - phpcpd
+- phpmndrun
+- phpmnd
 
 ### `all` options applicable
 - `-m` will check files that is modified/added according to `git`
