@@ -23,7 +23,7 @@ function a(int $a): bool
 
 function b(int $a): bool
 {
-    if ($a > 0) {
+    if ($a > 123) {
         return true;
     }
     return false;

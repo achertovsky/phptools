@@ -1,5 +1,7 @@
 FROM php:8.0-cli-alpine
 
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
 RUN apk add --no-cache --upgrade \
     wget \
     bash \
@@ -10,11 +12,18 @@ RUN wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -O /usr/bin/phpc
 RUN wget https://github.com/phpstan/phpstan/releases/download/1.9.3/phpstan.phar -O /usr/bin/phpstan
 RUN wget https://github.com/phpmd/phpmd/releases/download/2.13.0/phpmd.phar -O /usr/bin/phpmd
 RUN wget https://phar.phpunit.de/phpcpd.phar -O /usr/bin/phpcpd
+RUN wget https://github.com/povils/phpmnd/archive/refs/tags/v3.3.0.zip -O phpmnd.zip &&\
+    unzip phpmnd.zip -d phpmnd &&\
+    cd phpmnd/* &&\
+    php -dphar.readonly=0 bin/createPhar &&\
+    mv phpmnd.phar /usr/bin/phpmnd
+
 
 COPY all /usr/bin/all
 COPY suggest-config /usr/bin/suggest-config
 COPY phpcpdrun /usr/bin/phpcpdrun
 COPY config /var/config
+COPY phpmndrun /usr/bin/phpmndrun
 
 RUN chmod +x \
     /usr/bin/phpcs \
@@ -23,7 +32,8 @@ RUN chmod +x \
     /usr/bin/phpcpd \
     /usr/bin/all \
     /usr/bin/suggest-config \
-    /usr/bin/phpcpdrun
+    /usr/bin/phpcpdrun \
+    /usr/bin/phpmnd \
+    /usr/bin/phpmndrun
 
 RUN git config --global --add safe.directory /app
-
