@@ -6,7 +6,7 @@ function check() {
     phpcs $1
     checkFileExistence phpmd.xml
     echo -e "\033[1;32mphpmd:\033[0m"
-    phpmd $1 text phpmd.xml
+    php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' /usr/bin/phpmd $1 text phpmd.xml
     checkFileExistence phpstan.neon
     echo -e "\033[1;32mphpstan:\033[0m"
     phpstan analyze --level=7 $1
