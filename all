@@ -9,7 +9,7 @@ function check() {
     php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' /usr/bin/phpmd $1 text phpmd.xml
     checkFileExistence phpstan.neon
     echo -e "\033[1;32mphpstan:\033[0m"
-    phpstan analyze $1
+    phpstan --memory-limit=-1 analyze $1
     checkFileExistence phpcpd.xml
     echo -e "\033[1;32mphpcpd:\033[0m"
     phpcpdrun $1

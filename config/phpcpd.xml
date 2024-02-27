@@ -1,7 +1,7 @@
 <phpcpd>
     <fuzzy>false</fuzzy>
     <minLines>5</minLines>
-    <minTokens>70</minTokens>
+    <minTokens>30</minTokens>
     <exclude>
         <path>vendor</path>
     </exclude>
