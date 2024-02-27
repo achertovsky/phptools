@@ -1,49 +1,140 @@
-#!/bin/bash
+#!/usr/bin/env php
+<?php
 
-function check() {
-    checkFileExistence phpcs.xml
-    echo -e "\033[1;32mphpcs:\033[0m"
-    phpcs $1
-    checkFileExistence phpmd.xml
-    echo -e "\033[1;32mphpmd:\033[0m"
-    php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' /usr/bin/phpmd $1 text phpmd.xml
-    checkFileExistence phpstan.neon
-    echo -e "\033[1;32mphpstan:\033[0m"
-    phpstan --memory-limit=-1 analyze $1
-    checkFileExistence phpcpd.xml
-    echo -e "\033[1;32mphpcpd:\033[0m"
-    phpcpdrun $1
-    echo -e "\033[1;32mphpmnd:\033[0m"
-    checkFileExistence phpmnd.xml
-    phpmndrun $1
+const SUCCESS = 0;
+
+class Config
+{
+    public bool $colorized = false;
+    public string $singleFilePath = '';
+    public bool $checkStagedGitFilesOnly = false;
 }
 
-function checkFileExistence() {
-    if [ ! -f $1 ]; then
-        echo "File $1 not found! Try launching suggest-config"
-        exit 1
-    fi
+$mustHaveFiles = [
+    'phpcs.xml',
+    'phpmd.xml',
+    'phpstan.neon',
+    'phpcpd.xml',
+    'phpmnd.xml',
+];
+
+function writeLine(string $content, Config $config): void
+{
+    if ($config->colorized) {
+        echo "\033[1;32m$content\033[0m\n";
+    } else {
+        echo $content."\n";
+    }
 }
 
-if [ $# -eq 0 ]
-	then
-        check ./
-        exit 1
-fi
+/**
+ * @param string[] $files
+ */
+function checkMusthaveFiles(array $files): void
+{
+    foreach ($files as $file) {
+        if (!file_exists($file)) {
+            throw new Exception("File $file does not exist");
+        }
+    }
+}
 
-while getopts "mp:" opt
-	do
-	case $opt in
-        m)
-            for file in $(git ls-files -om --exclude-standard)
-                do
-                    check $file
-                done
+function getConfigFromArgs(): Config
+{
+    $config = new Config();
+    $args = getopt('m::p::c::');
+    if (isset($args['c'])) {
+        $config->colorized = true;
+    }
+    if (isset($args['p'])) {
+        $path = $args['p'];
+        /** @var string $path */
+        $config->singleFilePath = $path;
+    }
+    if (isset($args['m'])) {
+        $config->checkStagedGitFilesOnly = true;
+    }
 
-            exit 1
-            ;;
-        p)
-            check $OPTARG
-            ;;
-	esac
-done
+    return $config;
+
+}
+
+function checkSinglePath(
+    string $path,
+    Config $config
+): void {
+    launchToolWithReportingIssues(
+        sprintf(
+            'phpcs %s %s',
+            $config->colorized ? '--colors' : '',
+            $path
+        ),
+        $config
+    );
+
+    launchToolWithReportingIssues(
+        sprintf(
+            "php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' /usr/bin/phpmd %s %s text phpmd.xml",
+            $path,
+            $config->colorized ? '--color' : ''
+        ),
+        $config
+    );
+
+    launchToolWithReportingIssues(
+        sprintf(
+            "phpstan %s %s %s --memory-limit=-1 analyze %s",
+            '-n',
+            '--no-progress',
+            $config->colorized ? '--ansi' : '',
+            $path
+        ),
+        $config
+    );
+
+    launchToolWithReportingIssues(
+        "phpcpdrun $path",
+        $config
+    );
+
+    launchToolWithReportingIssues(
+        sprintf(
+            'phpmndrun %s %s',
+            $path,
+            $config->colorized ? '--ansi' : ''
+        ),
+        $config
+    );
+}
+
+function launchToolWithReportingIssues(
+    string $commandLaunch,
+    Config $config
+): void {
+    exec(
+        $commandLaunch,
+        $output,
+        $statusCode
+    );
+    if ($statusCode !== SUCCESS) {
+        writeLine(
+            "phpmnd",
+            $config
+        );
+        echo implode(PHP_EOL, $output);
+    }
+}
+
+checkMusthaveFiles($mustHaveFiles);
+$config = getConfigFromArgs();
+
+if ($config->singleFilePath) {
+    checkSinglePath($config->singleFilePath, $config);
+} elseif ($config->checkStagedGitFilesOnly) {
+    exec('git ls-files -om --exclude-standard', $stagingFiles);
+    foreach ($stagingFiles as $file) {
+        checkSinglePath($file, $config);
+    }
+} else {
+    checkSinglePath(getcwd(), $config);
+}

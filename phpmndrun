@@ -7,4 +7,4 @@ if [[ "$EXCLUDE" == "" ]]
         EXCLUDE="--exclude=`yq -oy -p xml '.phpmnd.exclude.path' phpmnd.xml`"
 fi
 
-phpmnd $EXCLUDE $1
+phpmnd $2 $EXCLUDE $1
