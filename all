@@ -64,6 +64,7 @@ function checkSinglePath(
     Config $config
 ): void {
     launchToolWithReportingIssues(
+        'phpcs',
         sprintf(
             'phpcs %s %s',
             $config->colorized ? '--colors' : '',
@@ -73,6 +74,7 @@ function checkSinglePath(
     );
 
     launchToolWithReportingIssues(
+        'phpmd',
         sprintf(
             "php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' /usr/bin/phpmd %s %s text phpmd.xml",
             $path,
@@ -82,6 +84,7 @@ function checkSinglePath(
     );
 
     launchToolWithReportingIssues(
+        'phpstan',
         sprintf(
             "phpstan %s %s %s --memory-limit=-1 analyze %s",
             '-n',
@@ -93,11 +96,13 @@ function checkSinglePath(
     );
 
     launchToolWithReportingIssues(
+        'phpcpd',
         "phpcpdrun $path",
         $config
     );
 
     launchToolWithReportingIssues(
+        'phpmnd',
         sprintf(
             'phpmndrun %s %s',
             $path,
@@ -108,6 +113,7 @@ function checkSinglePath(
 }
 
 function launchToolWithReportingIssues(
+    string $toolTitle,
     string $commandLaunch,
     Config $config
 ): void {
@@ -118,7 +124,7 @@ function launchToolWithReportingIssues(
     );
     if ($statusCode !== SUCCESS) {
         writeLine(
-            "phpmnd",
+            $toolTitle,
             $config
         );
         echo implode(PHP_EOL, $output);
