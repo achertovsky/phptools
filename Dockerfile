@@ -11,7 +11,7 @@ RUN wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -O /usr/bin/phpc
 RUN wget https://github.com/phpstan/phpstan/releases/download/1.10.55/phpstan.phar -O /usr/bin/phpstan
 RUN wget https://github.com/phpmd/phpmd/releases/download/2.14.1/phpmd.phar -O /usr/bin/phpmd
 RUN wget https://phar.phpunit.de/phpcpd.phar -O /usr/bin/phpcpd
-RUN wget https://github.com/povils/phpmnd/archive/refs/tags/v3.4.0.zip -O phpmnd.zip &&\
+RUN wget https://github.com/povils/phpmnd/archive/refs/heads/master.zip -O phpmnd.zip &&\
     unzip phpmnd.zip -d phpmnd &&\
     cd phpmnd/* &&\
     php -dphar.readonly=0 bin/createPhar &&\
