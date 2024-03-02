@@ -86,10 +86,11 @@ function checkSinglePath(
     launchToolWithReportingIssues(
         'phpstan',
         sprintf(
-            "phpstan %s %s %s --memory-limit=-1 analyze %s",
+            "phpstan %s %s %s --memory-limit=-1 --configuration=%s analyze %s",
             '-n',
             '--no-progress',
             $config->colorized ? '--ansi' : '',
+            'phpstan.neon',
             $path
         ),
         $config
