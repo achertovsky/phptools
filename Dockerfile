@@ -16,6 +16,7 @@ RUN wget https://github.com/povils/phpmnd/archive/refs/tags/v3.4.0.zip -O phpmnd
     cd phpmnd/* &&\
     php -dphar.readonly=0 bin/createPhar &&\
     mv phpmnd.phar /usr/bin/phpmnd
+RUN wget https://github.com/achertovsky/phpdrc/releases/download/0.1.1/phpdrc.phar -O /usr/bin/phpdrc
 
 RUN rm /usr/bin/composer
 
@@ -34,6 +35,7 @@ RUN chmod +x \
     /usr/bin/suggest-config \
     /usr/bin/phpcpdrun \
     /usr/bin/phpmnd \
-    /usr/bin/phpmndrun
+    /usr/bin/phpmndrun \
+    /usr/bin/phpdrc
 
 RUN git config --global --add safe.directory /app

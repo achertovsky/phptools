@@ -16,6 +16,7 @@ $mustHaveFiles = [
     'phpstan.neon',
     'phpcpd.xml',
     'phpmnd.xml',
+    'phpdrc.yml',
 ];
 
 function writeLine(string $content, Config $config): void
@@ -107,6 +108,26 @@ function checkSinglePath(
             'phpmndrun %s %s',
             $path,
             $config->colorized ? '--ansi' : ''
+        ),
+        $config
+    );
+
+    launchToolWithReportingIssues(
+        'phpmnd',
+        sprintf(
+            'phpmndrun %s %s',
+            $path,
+            $config->colorized ? '--ansi' : ''
+        ),
+        $config
+    );
+
+    launchToolWithReportingIssues(
+        'phpdrc',
+        sprintf(
+            'phpdrc drc %s %s',
+            '--c=phpdrc.yml',
+            $config->colorized ? '--ansi' : '--no-ansi'
         ),
         $config
     );
