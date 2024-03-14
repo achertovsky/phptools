@@ -16,7 +16,7 @@ $mustHaveFiles = [
     'phpstan.neon',
     'phpcpd.xml',
     'phpmnd.xml',
-    'phpdrc.yml',
+    'phpdrc.yaml',
 ];
 
 function writeLine(string $content, Config $config): void
@@ -125,8 +125,7 @@ function checkSinglePath(
     launchToolWithReportingIssues(
         'phpdrc',
         sprintf(
-            'phpdrc drc %s %s',
-            '--c=phpdrc.yml',
+            'phpdrc %s drc',
             $config->colorized ? '--ansi' : '--no-ansi'
         ),
         $config
@@ -148,7 +147,7 @@ function launchToolWithReportingIssues(
             $toolTitle,
             $config
         );
-        echo implode(PHP_EOL, $output);
+        echo implode(PHP_EOL, $output)."\n";
     }
 }
 

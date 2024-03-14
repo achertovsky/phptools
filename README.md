@@ -23,8 +23,9 @@ Container with tools required to develop php and check code you write. Contains:
 - phpcs
 - phpmd
 - phpcpd
-- phpmndrun
+- phpmndrun (will launch phpmnd using config)
 - phpmnd
+- phpdrc
 ## Notes
 ### phpstan-related
 phpstan launched with `--memory_limit=-1` flag due to widely-known issues so to not it leat all memory of your machine use `-m` param of docker to limit container memory
