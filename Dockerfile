@@ -21,7 +21,7 @@ RUN cd /phpstan-src  \
     && php bin/prepare \
     && cd build \
     && ls -la && chmod +x box.phar \
-    && ./box.phar compile
+    && ./box.phar compile --no-parallel
 
 FROM php:8.3-cli-alpine
 
