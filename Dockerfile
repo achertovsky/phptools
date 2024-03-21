@@ -9,7 +9,7 @@ RUN apk add --no-cache --upgrade \
     yq
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN git clone -b 1.10.x --single-branch https://github.com/phpstan/phpstan-src.git /phpstan-src
+RUN git clone -b 1.10.55 --single-branch https://github.com/phpstan/phpstan-src.git /phpstan-src
 WORKDIR /phpstan-src
 RUN cd /phpstan-src  \
     && composer install \
