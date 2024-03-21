@@ -30,6 +30,8 @@ Container with tools required to develop php and check code you write. Contains:
 ### phpstan-related
 phpstan launched with `--memory_limit=-1` flag due to widely-known issues so to not it leat all memory of your machine use `-m` param of docker to limit container memory
 
+phpstan is finetuned by `phptools` and `phar`'ed from source code with symfony, phpunit and doctrine extension
+
 ### `all` options applicable
 - `-m` will check files that is modified/added according to `git`
 - `-p test.php` will check provided file only

@@ -3,12 +3,25 @@ FROM php:8.3-cli-alpine as phpstan
 RUN apk add --no-cache --upgrade \
     wget \
     bash \
+    make \
     git \
+    patch \
     yq
 
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN git clone https://github.com/phpstan/phpstan-src.git /phpstan-src
 WORKDIR /phpstan-src
-RUN composer install
+RUN cd /phpstan-src  \
+    && composer install \
+    && composer require phpstan/phpstan-doctrine \
+    && composer require phpstan/phpstan-symfony \
+    && composer require phpstan/phpstan-phpunit \
+    && cd compiler \
+    && composer install \
+    && php bin/prepare \
+    && cd build \
+    && ls -la && chmod +x box.phar \
+    && ./box.phar compile
 
 FROM php:8.3-cli-alpine
 
@@ -20,8 +33,7 @@ RUN apk add --no-cache --upgrade \
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -O /usr/bin/phpcs
-RUN wget https://github.com/phpstan/phpstan/releases/download/1.10.55/phpstan.phar -O /usr/bin/phpstan
-COPY --from=phpstan phpstan.phar /usr/bin/phpstan.phar
+COPY --from=phpstan /phpstan-src/tmp/phpstan.phar /usr/bin/phpstan
 RUN wget https://github.com/phpmd/phpmd/releases/download/2.14.1/phpmd.phar -O /usr/bin/phpmd
 RUN wget https://phar.phpunit.de/phpcpd.phar -O /usr/bin/phpcpd
 RUN wget https://github.com/povils/phpmnd/archive/refs/heads/master.zip -O phpmnd.zip &&\
