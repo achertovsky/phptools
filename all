@@ -114,16 +114,6 @@ function checkSinglePath(
     );
 
     launchToolWithReportingIssues(
-        'phpmnd',
-        sprintf(
-            'phpmndrun %s %s',
-            $path,
-            $config->colorized ? '--ansi' : ''
-        ),
-        $config
-    );
-
-    launchToolWithReportingIssues(
         'phpdrc',
         sprintf(
             'phpdrc %s drc',
