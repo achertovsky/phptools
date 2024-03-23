@@ -2,12 +2,14 @@
 <?php
 
 const SUCCESS = 0;
+const FAILURE = 1;
 
 class Config
 {
     public bool $colorized = false;
     public string $singleFilePath = '';
     public bool $checkStagedGitFilesOnly = false;
+    public bool $stopOnFailure = false;
 }
 
 $mustHaveFiles = [
@@ -43,7 +45,7 @@ function checkMusthaveFiles(array $files): void
 function getConfigFromArgs(): Config
 {
     $config = new Config();
-    $args = getopt('m::p::c::');
+    $args = getopt('m::p::c::s::');
     if (isset($args['c'])) {
         $config->colorized = true;
     }
@@ -55,6 +57,9 @@ function getConfigFromArgs(): Config
     if (isset($args['m'])) {
         $config->checkStagedGitFilesOnly = true;
     }
+    if (isset($args['s'])) {
+        $config->stopOnFailure = true;
+    }
 
     return $config;
 
@@ -63,71 +68,64 @@ function getConfigFromArgs(): Config
 function checkSinglePath(
     string $path,
     Config $config
-): void {
-    launchToolWithReportingIssues(
-        'phpcs',
-        sprintf(
+): int {
+    $commandsToLaunch = [
+        'phpcs' => sprintf(
             'phpcs %s %s',
             $config->colorized ? '--colors' : '',
             $path
         ),
-        $config
-    );
-
-    launchToolWithReportingIssues(
-        'phpmd',
-        sprintf(
+        'phpmd' => sprintf(
             "php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' /usr/bin/phpmd %s %s text phpmd.xml",
             $path,
             $config->colorized ? '--color' : ''
         ),
-        $config
-    );
-
-    launchToolWithReportingIssues(
-        'phpstan',
-        sprintf(
-            "phpstan %s %s %s --memory-limit=-1 --configuration=%s analyze %s",
+        'phpstan' => sprintf(
+            'phpstan %s %s %s --memory-limit=-1 --configuration=%s analyze %s',
             '-n',
             '--no-progress',
             $config->colorized ? '--ansi' : '',
             'phpstan.neon',
             $path
         ),
-        $config
-    );
-
-    launchToolWithReportingIssues(
-        'phpcpd',
-        "phpcpdrun $path",
-        $config
-    );
-
-    launchToolWithReportingIssues(
-        'phpmnd',
-        sprintf(
+        'phpcpd' => sprintf(
+            'phpcpdrun %s',
+            $path
+        ),
+        'phpmnd' => sprintf(
             'phpmndrun %s %s',
             $path,
             $config->colorized ? '--ansi' : ''
         ),
-        $config
-    );
-
-    launchToolWithReportingIssues(
-        'phpdrc',
-        sprintf(
+        'phpdrc' => sprintf(
             'phpdrc %s drc',
             $config->colorized ? '--ansi' : '--no-ansi'
-        ),
-        $config
-    );
+        )
+    ];
+
+    $failedAtLeastOnce = false;
+    foreach ($commandsToLaunch as $toolName => $command) {
+        $status = launchToolWithReportingIssues(
+            $toolName,
+            $command,
+            $config
+        );
+        if ($status !== SUCCESS) {
+            $failedAtLeastOnce = true;
+        }
+        if ($status !== SUCCESS && $config->stopOnFailure) {
+            return FAILURE;
+        }
+    }
+
+    return $failedAtLeastOnce ? FAILURE : SUCCESS;
 }
 
 function launchToolWithReportingIssues(
     string $toolTitle,
     string $commandLaunch,
     Config $config
-): void {
+): int {
     exec(
         $commandLaunch,
         $output,
@@ -140,18 +138,20 @@ function launchToolWithReportingIssues(
         );
         echo implode(PHP_EOL, $output)."\n";
     }
+
+    return $statusCode;
 }
 
 checkMusthaveFiles($mustHaveFiles);
 $config = getConfigFromArgs();
 
 if ($config->singleFilePath) {
-    checkSinglePath($config->singleFilePath, $config);
+    exit(checkSinglePath($config->singleFilePath, $config));
 } elseif ($config->checkStagedGitFilesOnly) {
     exec('git ls-files -om --exclude-standard', $stagingFiles);
     foreach ($stagingFiles as $file) {
-        checkSinglePath($file, $config);
+        exit(checkSinglePath($file, $config));
     }
 } else {
-    checkSinglePath(getcwd(), $config);
+    exit(checkSinglePath(getcwd(), $config));
 }
