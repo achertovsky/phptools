@@ -41,7 +41,7 @@ RUN wget https://github.com/povils/phpmnd/archive/refs/heads/master.zip -O phpmn
     cd phpmnd/* &&\
     php -dphar.readonly=0 bin/createPhar &&\
     mv phpmnd.phar /usr/bin/phpmnd
-RUN wget https://github.com/achertovsky/phpdrc/releases/download/0.2.1/phpdrc.phar -O /usr/bin/phpdrc
+RUN wget https://github.com/achertovsky/phpdrc/releases/download/0.3.0/phpdrc.phar -O /usr/bin/phpdrc
 
 RUN rm /usr/bin/composer
 

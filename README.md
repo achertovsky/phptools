@@ -44,3 +44,9 @@ https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#using-a-default
 https://phpmd.org/documentation/creating-a-ruleset.html
 ## config file for phpstan
 https://phpstan.org/config-reference#config-file
+## config file for phpcpd
+check `phpcpd.xml` file in `config` directory
+## config file for phpmnd
+check `phpmnd.xml` file in `config` directory
+## config file for phpdrc
+https://github.com/achertovsky/phpdrc/blob/master/readme.md#config
