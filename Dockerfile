@@ -32,9 +32,9 @@ RUN apk add --no-cache --upgrade \
     yq
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -O /usr/bin/phpcs
+RUN wget https://github.com/PHPCSStandards/PHP_CodeSniffer/releases/download/3.10.1/phpcs.phar -O /usr/bin/phpcs
 COPY --from=phpstan /phpstan-src/tmp/phpstan.phar /usr/bin/phpstan
-RUN wget https://github.com/phpmd/phpmd/releases/download/2.14.1/phpmd.phar -O /usr/bin/phpmd
+RUN wget https://github.com/phpmd/phpmd/releases/download/2.15.0/phpmd.phar -O /usr/bin/phpmd
 RUN wget https://phar.phpunit.de/phpcpd.phar -O /usr/bin/phpcpd
 RUN wget https://github.com/povils/phpmnd/archive/refs/heads/master.zip -O phpmnd.zip &&\
     unzip phpmnd.zip -d phpmnd &&\
