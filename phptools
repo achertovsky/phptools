@@ -71,17 +71,17 @@ function checkSinglePath(
 ): int {
     $commandsToLaunch = [
         'phpcs' => sprintf(
-            'phpcs %s %s',
+            'vendor/bin/phpcs %s %s',
             $config->colorized ? '--colors' : '',
             $path
         ),
         'phpmd' => sprintf(
-            "php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' /usr/bin/phpmd %s %s text phpmd.xml",
+            "php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' vendor/bin/phpmd %s %s text phpmd.xml",
             $path,
             $config->colorized ? '--color' : ''
         ),
         'phpstan' => sprintf(
-            'phpstan %s %s %s --memory-limit=-1 --configuration=%s analyze %s',
+            'vendor/bin/phpstan %s %s %s --memory-limit=-1 --configuration=%s analyze %s',
             '-n',
             '--no-progress',
             $config->colorized ? '--ansi' : '',
@@ -89,16 +89,16 @@ function checkSinglePath(
             $path
         ),
         'phpcpd' => sprintf(
-            'phpcpdrun %s',
+            'vendor/bin/phpcpdrun %s',
             $path
         ),
         'phpmnd' => sprintf(
-            'phpmndrun %s %s',
+            'vendor/bin/phpmndrun %s %s',
             $path,
             $config->colorized ? '--ansi' : ''
         ),
         'phpdrc' => sprintf(
-            'phpdrc %s drc',
+            'vendor/bin/phpdrc %s drc',
             $config->colorized ? '--ansi' : '--no-ansi'
         )
     ];
