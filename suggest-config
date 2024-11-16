@@ -1,3 +1,26 @@
 #!/bin/bash
 
-cp /var/config/* /app
+if [[ ! -f phpcpd.xml ]]
+    then
+        cp vendor/achertovsky/phptools/config/phpcpd.xml .
+fi
+if [[ ! -f phpmnd.xml ]]
+    then
+        cp vendor/achertovsky/phptools/config/phpmnd.xml .
+fi
+if [[ ! -f phpcs.xml ]]
+    then
+        cp vendor/achertovsky/phptools/config/phpcs.xml .
+fi
+if [[ ! -f phpmd.xml ]]
+    then
+        cp vendor/achertovsky/phptools/config/phpmd.xml .
+fi
+if [[ ! -f phpstan.neon ]]
+    then
+        cp vendor/achertovsky/phptools/config/phpstan.neon .
+fi
+if [[ ! -f phpdrc.yaml ]]
+    then
+        cp vendor/achertovsky/phptools/config/phpdrc.yaml .
+fi

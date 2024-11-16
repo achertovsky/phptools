@@ -43,8 +43,6 @@ RUN wget https://github.com/povils/phpmnd/archive/refs/heads/master.zip -O phpmn
     mv phpmnd.phar /usr/bin/phpmnd
 RUN wget https://github.com/achertovsky/phpdrc/releases/download/0.3.0/phpdrc.phar -O /usr/bin/phpdrc
 
-RUN rm /usr/bin/composer
-
 COPY all /usr/bin/all
 COPY suggest-config /usr/bin/suggest-config
 COPY phpcpdrun /usr/bin/phpcpdrun

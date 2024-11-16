@@ -17,4 +17,4 @@ if [[ "$EXCLUDE" == "" ]]
         EXCLUDE="--exclude=`yq -oy -p xml '.phpcpd.exclude.path' phpcpd.xml`"
 fi
 
-phpcpd $EXCLUDE $FUZZY --min-lines=$MINLINES --min-tokens=$MINTOKENS $1
+vendor/bin/phpcpd $EXCLUDE $FUZZY --min-lines=$MINLINES --min-tokens=$MINTOKENS $1

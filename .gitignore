@@ -1,6 +1,8 @@
+.idea/
 phpcpd.xml
 phpcs.xml
 phpmd.xml
 phpmnd.xml
 phpstan.neon
 phpdrc.yaml
+vendor/
