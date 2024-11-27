@@ -8,7 +8,7 @@ Toolset which usually required to develop php and check code you write. Contains
 
 # Usage
 ## Dependencies
-Make sure your env has app called `yq`, install it via package manager
+Make sure your env has app called `xq`, install it via package manager
 ## Install and first run
 ```
 composer require --dev achertovsky/phptools

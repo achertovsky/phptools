@@ -1,10 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env php
+<?php
 
-EXCLUDE=`yq -oy -p xml '.phpmnd.exclude.path | .[] as $item ireduce (""; . + " --exclude=" + $item)' phpmnd.xml`
+$xml = simplexml_load_file('phpmnd.xml');
+$excludePaths = [];
 
-if [[ "$EXCLUDE" == "" ]]
-    then
-        EXCLUDE="--exclude=`yq -oy -p xml '.phpmnd.exclude.path' phpmnd.xml`"
-fi
+foreach ($xml->exclude->path as $path) {
+    $excludePaths[] = '--exclude=' . (string)$path;
+}
 
-vendor/bin/phpmnd $2 $EXCLUDE $1
+$exclude = implode(' ', $excludePaths);
+
+$command = "vendor/bin/phpmnd " . $argv[2] . " " . $exclude . " " . $argv[1];
+
+exec($command, $output);
+foreach ($output as $line) {
+    echo $line . PHP_EOL;
+}

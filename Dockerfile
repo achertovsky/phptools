@@ -4,6 +4,6 @@ RUN apk add --no-cache --upgrade \
     wget \
     bash \
     git \
-    yq
+    xq
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
