@@ -1,5 +1,5 @@
 # General
-Container with tools required to develop php and check code you write. Contains:
+Toolset which usually required to develop php and check code you write. Contains:
 - phpstan
 - phpmd
 - phpcs
@@ -7,32 +7,19 @@ Container with tools required to develop php and check code you write. Contains:
 - phpmnd
 
 # Usage
-## build local
-- `docker build -t phptools .`
-- (optional) `docker run --rm -it -u ${UID} -v ${PWD}:/app -w /app phptools suggest-config`<br>
-- `docker run -m100m --rm -it -u ${UID} -v ${PWD}:/app -w /app phptools all`<br>
-## use built image
-- `docker pull achertovsky/phptools`<br>
-- (optional) `docker run --rm -it -u ${UID} -v ${PWD}:/app -w /app achertovsky/phptools suggest-config`<br>
-- `docker run -m100m --rm -it -u ${UID} -v ${PWD}:/app -w /app achertovsky/phptools all`<br>
-## Commands applicable
-- all (will launch all tools one by one)
-- suggest-config (will create example configs for all tools)
-- phpcpdrun (will launch phpcpd using config)
-- phpstan
-- phpcs
-- phpmd
-- phpcpd
-- phpmndrun (will launch phpmnd using config)
-- phpmnd
-- phpdrc
+## Dependencies
+Make sure your env has app called `yq`, install it via package manager
+## Install and first run
+```
+composer require achertovsky/phptools
+vendor/bin/suggest-config
+vendor/bin/phptools
+```
 ## Notes
 ### phpstan-related
 phpstan launched with `--memory_limit=-1` flag due to widely-known issues so to not it leat all memory of your machine use `-m` param of docker to limit container memory
 
-phpstan is finetuned by `phptools` and `phar`'ed from source code with symfony, phpunit and doctrine extension
-
-### `all` options applicable
+### `phptools` options applicable
 - `-m` will check files that is modified/added according to `git`
 - `-p test.php` will check provided file only
 
@@ -50,3 +37,11 @@ check `phpcpd.xml` file in `config` directory
 check `phpmnd.xml` file in `config` directory
 ## config file for phpdrc
 https://github.com/achertovsky/phpdrc/blob/master/readme.md#config
+
+# Development
+```
+docker build -t phptools .
+docker run --rm -it -u${UID} -v${PWD}:/var/www/html -w/var/www/html phptools composer i
+cp config/* .
+docker run --rm -it -u${UID} -v${PWD}:/var/www/html -w/var/www/html phptools php phptools
+```

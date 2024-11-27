@@ -1,6 +1,6 @@
 {
     "name": "achertovsky/phptools",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "type": "library",
     "require": {
         "php": "^8.0",
@@ -8,12 +8,12 @@
         "phpstan/phpstan": "^2.0",
         "phpmd/phpmd": "^2.0",
         "povils/phpmnd": "^3.5",
-        "sebastian/phpcpd": "@dev",
+        "sebastian/phpcpd": "dev-main",
         "achertovsky/phpdrc": "^0.3.1"
     },
     "bin": [
         "phpcpdrun",
-        "phpmmdrun",
+        "phpmndrun",
         "suggest-config",
         "phptools"
     ]
