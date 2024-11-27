@@ -11,7 +11,7 @@ Toolset which usually required to develop php and check code you write. Contains
 Make sure your env has app called `yq`, install it via package manager
 ## Install and first run
 ```
-composer require achertovsky/phptools
+composer require --dev achertovsky/phptools
 vendor/bin/suggest-config
 vendor/bin/phptools
 ```
