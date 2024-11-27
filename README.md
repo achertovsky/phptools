@@ -23,6 +23,9 @@ phpstan launched with `--memory_limit=-1` flag due to widely-known issues so to 
 - `-m` will check files that is modified/added according to `git`
 - `-p test.php` will check provided file only
 
+### phpcpd
+phar placed in lib code is [box](https://github.com/box-project/box)'ed from [latest phpcpd main branch code](https://github.com/sebastianbergmann/phpcpd) and do not belong to lib author
+
 # Tools config
 You can create your own
 ## config file for phpcs
