@@ -1,9 +1,5 @@
-FROM php:8.3-cli-alpine
+FROM php:8.4-cli
 
-RUN apk add --no-cache --upgrade \
-    wget \
-    bash \
-    git \
-    xq
+RUN apt update && apt install xq
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer

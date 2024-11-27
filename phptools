@@ -15,6 +15,7 @@ class Config
 $mustHaveFiles = [
     'phpcs.xml',
     'phpmd.xml',
+    'phpmd-tests.xml',
     'phpstan.neon',
     'phpcpd.xml',
     'phpmnd.xml',
@@ -77,6 +78,11 @@ function checkSinglePath(
         ),
         'phpmd' => sprintf(
             "php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' vendor/bin/phpmd %s %s text phpmd.xml",
+            $path,
+            $config->colorized ? '--color' : ''
+        ),
+        'phpmd-tests' => sprintf(
+            "php -d 'error_reporting=E_ALL&~E_NOTICE&~E_DEPRECATED' vendor/bin/phpmd %s %s text phpmd-tests.xml",
             $path,
             $config->colorized ? '--color' : ''
         ),
