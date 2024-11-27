@@ -1,6 +1,6 @@
 {
     "name": "achertovsky/phptools",
-    "version": "0.4.5",
+    "version": "0.4.6",
     "type": "library",
     "require": {
         "php": "^8.0",

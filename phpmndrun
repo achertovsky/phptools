@@ -10,7 +10,7 @@ foreach ($xml->exclude->path as $path) {
 
 $exclude = implode(' ', $excludePaths);
 
-$command = "vendor/bin/phpmnd " . $argv[2] . " " . $exclude . " " . $argv[1];
+$command = "vendor/bin/phpmnd " . ($argv[2] ?? '') . " " . $exclude . " " . $argv[1];
 
 exec($command, $output);
 foreach ($output as $line) {
