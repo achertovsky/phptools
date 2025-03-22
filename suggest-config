@@ -16,7 +16,7 @@ if [[ ! -f phpmd.xml ]]
     then
         cp vendor/achertovsky/phptools/config/phpmd.xml .
 fi
-if [[ ! -f phpmd.xml ]]
+if [[ ! -f phpmd-tests.xml ]]
     then
         cp vendor/achertovsky/phptools/config/phpmd-tests.xml .
 fi
