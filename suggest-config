@@ -16,6 +16,10 @@ if [[ ! -f phpmd.xml ]]
     then
         cp vendor/achertovsky/phptools/config/phpmd.xml .
 fi
+if [[ ! -f phpmd.xml ]]
+    then
+        cp vendor/achertovsky/phptools/config/phpmd-tests.xml .
+fi
 if [[ ! -f phpstan.neon ]]
     then
         cp vendor/achertovsky/phptools/config/phpstan.neon .
