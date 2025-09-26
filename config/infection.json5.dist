@@ -4,6 +4,7 @@
             "src"
         ],
         "excludes": [
+            "non-existing-dir"
         ]
     },
     "timeout": 10,
@@ -34,7 +35,5 @@
     },
     "testFramework":"phpunit",
     "testFrameworkOptions": "",
-    "staticAnalysisTool":"phpstan",
-    "bootstrap":"./infection-bootstrap.php",
-    "initialTestsPhpOptions": "-d zend_extension=xdebug.so"
+    "initialTestsPhpOptions": "-d xdebug.mode=coverage"
 }

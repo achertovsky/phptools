@@ -20,6 +20,7 @@ $mustHaveFiles = [
     'phpcpd.xml',
     'phpmnd.xml',
     'phpdrc.yaml',
+    'infection.json5',
 ];
 
 function writeLine(string $content, Config $config): void
@@ -106,7 +107,8 @@ function checkSinglePath(
         'phpdrc' => sprintf(
             'vendor/bin/phpdrc %s drc',
             $config->colorized ? '--ansi' : '--no-ansi'
-        )
+        ),
+        'infection' => 'vendor/bin/infection --threads=4'
     ];
 
     $failedAtLeastOnce = false;
