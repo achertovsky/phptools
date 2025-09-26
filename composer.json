@@ -1,6 +1,6 @@
 {
     "name": "achertovsky/phptools",
-    "version": "0.4.10",
+    "version": "0.5.1",
     "license": "MIT",
     "type": "library",
     "require": {
