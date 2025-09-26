@@ -9,7 +9,9 @@
         "phpstan/phpstan": "^2.0",
         "phpmd/phpmd": "^2.0",
         "povils/phpmnd": "^3.5",
-        "achertovsky/phpdrc": "^0.3.1"
+        "achertovsky/phpdrc": "^0.3.1",
+        "phpunit/phpunit": "^12",
+        "infection/infection": "^0.31"
     },
     "bin": [
         "phpcpdrun",
@@ -17,5 +19,11 @@
         "suggest-config",
         "phptools",
         "phpcpd"
-    ]
+    ],
+    "scripts": {
+        "post-update-cmd": [
+            "cp infection.json5.dist infection.json5",
+            "echo infection.json5 >> .gitignore"
+        ]
+    }
 }
