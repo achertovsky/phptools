@@ -108,7 +108,7 @@ function checkSinglePath(
             'vendor/bin/phpdrc %s drc',
             $config->colorized ? '--ansi' : '--no-ansi'
         ),
-        'infection' => 'vendor/bin/infection -q --threads=4'
+        'infection' => 'vendor/bin/infection -q --threads=max'
     ];
 
     $failedAtLeastOnce = false;
