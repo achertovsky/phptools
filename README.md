@@ -42,9 +42,5 @@ check `phpmnd.xml` file in `config` directory
 https://github.com/achertovsky/phpdrc/blob/master/readme.md#config
 
 # Development
-```
-docker build -t phptools .
-docker run --rm -it -u${UID} -v${PWD}:/var/www/html -w/var/www/html phptools composer i
-cp config/* .
-docker run --rm -it -u${UID} -v${PWD}:/var/www/html -w/var/www/html phptools php phptools
-```
+
+Everything you need is in make file

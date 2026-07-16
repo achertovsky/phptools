@@ -2,7 +2,11 @@
 phpcpd.xml
 phpcs.xml
 phpmd.xml
+phpmd-tests.xml
 phpmnd.xml
 phpstan.neon
 phpdrc.yaml
+infection.json5
 vendor/
+composer.lock
+/phptools.php

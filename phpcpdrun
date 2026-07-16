@@ -13,7 +13,17 @@ foreach ($excludes as $excludeEntry) {
     $exclude .= '--exclude='.$excludeEntry.' ';
 }
 
-$command = "vendor/bin/phpcpd $exclude $fuzzy --min-lines=$minLines --min-tokens=$minTokens " . $argv[1];
+if (file_exists('phptools.php')) {
+    $config = require 'phptools.php';
+    if ($config['binDir'] !== '' && substr($config['binDir'], -1) !== '/') {
+        $config['binDir'] .= '/';
+    }
+}
+
+$binDir = $config['binDir'] ?? 'vendor/bin/';
+
+
+$command = "{$binDir}phpcpd $exclude $fuzzy --min-lines=$minLines --min-tokens=$minTokens " . $argv[1];
 
 exec($command, $output);
 foreach ($output as $line) {
