@@ -1,6 +1,6 @@
 {
     "name": "achertovsky/phptools",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "license": "MIT",
     "type": "library",
     "require": {
@@ -10,7 +10,7 @@
         "phpmd/phpmd": "^2.0",
         "povils/phpmnd": "^3.5",
         "achertovsky/phpdrc": "^0.3.1",
-        "phpunit/phpunit": "^12",
+        "phpunit/phpunit": "^13",
         "infection/infection": "^0.34"
     },
     "bin": [
@@ -20,12 +20,6 @@
         "phptools",
         "phpcpd"
     ],
-    "scripts": {
-        "post-update-cmd": [
-            "cp infection.json5.dist infection.json5",
-            "echo infection.json5 >> .gitignore"
-        ]
-    },
     "config": {
         "allow-plugins": {
             "infection/extension-installer": true
