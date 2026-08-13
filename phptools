@@ -183,8 +183,9 @@ checkMusthaveFiles($mustHaveFiles);
 $config = getConfigFromArgs();
 
 $overrideConfig = [];
-if (file_exists(__DIR__.'/phptools.php')) {
-    $overrideConfig = require __DIR__.'/phptools.php';
+$currentWorkDir = posix_getcwd();
+if (file_exists($currentWorkDir.'/phptools.php')) {
+    $overrideConfig = require $currentWorkDir.'/phptools.php';
 }
 
 if ($overrideConfig !== []) {
