@@ -3,4 +3,5 @@
 return [
     'binDir' => './',
     'runinfection' => false,
+    'infectionMemoryLimit' => '128M',
 ];

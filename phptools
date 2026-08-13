@@ -12,6 +12,7 @@ class Config
     public bool $stopOnFailure = false;
     public string $binDir = 'vendor/bin/';
     public bool $runinfection = true;
+    public string $infectionMemoryLimit = '128M';
 
     public function setConfig(array $config): void
     {
@@ -23,6 +24,9 @@ class Config
         }
         if (isset($config['runinfection'])) {
             $this->runinfection = $config['runinfection'];
+        }
+        if (isset($config['infectionMemoryLimit'])) {
+            $this->infectionMemoryLimit = $config['infectionMemoryLimit'];
         }
     }
 }
@@ -124,7 +128,12 @@ function checkSinglePath(
             'vendor/bin/phpdrc %s drc',
             $config->colorized ? '--ansi' : '--no-ansi'
         ),
-        'infection' => 'vendor/bin/infection --threads=max'
+        'infection' => sprintf(
+            sprintf(
+                'php -d php.memory_limit=%s vendor/bin/infection --threads=max',
+                $config->infectionMemoryLimit
+            )
+        )
     ];
 
     if ($config->runinfection === false) {
