@@ -28,6 +28,10 @@ if [[ ! -f phpdrc.yaml ]]
     then
         cp vendor/achertovsky/phptools/config/phpdrc.yaml .
 fi
+if [[ ! -f phptools.php ]]
+    then
+        cp vendor/achertovsky/phptools/config/phptools.php .
+fi
 if [[ ! -f infection.json5 ]]
     then
         cp vendor/achertovsky/phptools/config/infection.json5.dist infection.json5.dist
