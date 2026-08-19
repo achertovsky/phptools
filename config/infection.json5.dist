@@ -35,5 +35,6 @@
     },
     "testFramework":"phpunit",
     "testFrameworkOptions": "",
-    "initialTestsPhpOptions": "-d xdebug.mode=coverage"
+    "initialTestsPhpOptions": "-d xdebug.mode=coverage",
+    "minMsi": 100
 }

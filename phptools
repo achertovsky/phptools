@@ -130,7 +130,7 @@ function checkSinglePath(
         ),
         'infection' => sprintf(
             sprintf(
-                'php -d php.memory_limit=%s vendor/bin/infection --threads=max',
+                'php -d memory_limit=%s vendor/bin/infection --threads=max',
                 $config->infectionMemoryLimit
             )
         )
