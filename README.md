@@ -29,7 +29,7 @@ phar placed in lib code is [box](https://github.com/box-project/box)'ed from [la
 # Tools config
 You can create your own
 ## config file for phpcs
-https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#using-a-default-configuration-file
+https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Advanced-Usage#using-a-default-configuration-file
 ## config file for phpmd
 https://phpmd.org/documentation/creating-a-ruleset.html
 ## config file for phpstan
