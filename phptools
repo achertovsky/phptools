@@ -13,6 +13,7 @@ class Config
     public string $binDir = 'vendor/bin/';
     public bool $runinfection = true;
     public string $infectionMemoryLimit = '128M';
+    public string $infectionThreads = '1';
 
     public function setConfig(array $config): void
     {
@@ -27,6 +28,9 @@ class Config
         }
         if (isset($config['infectionMemoryLimit'])) {
             $this->infectionMemoryLimit = $config['infectionMemoryLimit'];
+        }
+        if (isset($config['infectionThreads'])) {
+            $this->infectionThreads = $config['infectionThreads'];
         }
     }
 }
@@ -47,7 +51,7 @@ function writeLine(string $content, Config $config): void
     if ($config->colorized) {
         echo "\033[1;32m$content\033[0m\n";
     } else {
-        echo $content."\n";
+        echo $content . "\n";
     }
 }
 
@@ -130,10 +134,11 @@ function checkSinglePath(
         ),
         'infection' => sprintf(
             sprintf(
-                'php -d memory_limit=%s vendor/bin/infection --threads=max',
-                $config->infectionMemoryLimit
+                'php -d memory_limit=%s vendor/bin/infection --threads=%s',
+                $config->infectionMemoryLimit,
+                $config->infectionThreads
             )
-        )
+        ),
     ];
 
     if ($config->runinfection === false) {
@@ -173,7 +178,7 @@ function launchToolWithReportingIssues(
             $toolTitle,
             $config
         );
-        echo implode(PHP_EOL, $output)."\n";
+        echo implode(PHP_EOL, $output) . "\n";
     }
 
     return $statusCode;
@@ -184,8 +189,8 @@ $config = getConfigFromArgs();
 
 $overrideConfig = [];
 $currentWorkDir = posix_getcwd();
-if (file_exists($currentWorkDir.'/phptools.php')) {
-    $overrideConfig = require $currentWorkDir.'/phptools.php';
+if (file_exists($currentWorkDir . '/phptools.php')) {
+    $overrideConfig = require $currentWorkDir . '/phptools.php';
 }
 
 if ($overrideConfig !== []) {
