@@ -8,7 +8,6 @@
         ]
     },
     "timeout": 10,
-    "threads": "max",
     "logs": {
         "text": "var/infection/infection.log",
         "html": "var/infection/infection.html",
